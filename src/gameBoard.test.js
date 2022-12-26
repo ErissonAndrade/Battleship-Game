@@ -1,0 +1,83 @@
+import {Gameboard} from "./gameBoard"
+
+describe('place ships', () => {
+    it('place ships on axis Y', () => {
+        const mockGameBoard = Gameboard()
+        mockGameBoard.placeShipsOnBoard("4","1B", "Y")
+        expect(mockGameBoard.shipsOnBoard.map(ship => ship.type)).toStrictEqual(["Battleship"])
+        expect(mockGameBoard.shipsOnBoard.map(ship => ship.coords)).toStrictEqual([["1B", "2B", "3B", "4B"]])
+        expect(mockGameBoard.shipsOnBoard.map(ship => ship.shipMethods.timesHit)).toStrictEqual([0])
+        mockGameBoard.shipsOnBoard.map(ship => ship.shipMethods.hit())
+        expect(mockGameBoard.shipsOnBoard.map(ship => ship.shipMethods.timesHit)).toStrictEqual([1])
+    })
+    it('place ships on axis X', () => {
+        const mockGameBoard = Gameboard()
+        mockGameBoard.placeShipsOnBoard("4","1B", "X")
+        expect(mockGameBoard.shipsOnBoard.map(ship => ship.type)).toStrictEqual(["Battleship"])
+        expect(mockGameBoard.shipsOnBoard.map(ship => ship.coords)).toStrictEqual([["1B", "1C", "1D", "1E"]])
+        expect(mockGameBoard.shipsOnBoard.map(ship => ship.shipMethods.timesHit)).toStrictEqual([0])
+        mockGameBoard.shipsOnBoard.map(ship => ship.shipMethods.hit())
+        expect(mockGameBoard.shipsOnBoard.map(ship => ship.shipMethods.timesHit)).toStrictEqual([1])
+    })
+    it('prevent from placing ships on invalid coordenates', () => {
+        const mockGameBoard = Gameboard()
+        mockGameBoard.placeShipsOnBoard("4","1J", "X")
+        mockGameBoard.placeShipsOnBoard("4","9J", "Y")
+        expect(mockGameBoard.shipsOnBoard).toStrictEqual([])
+    }) 
+    it('prevent from adding two ships of the same type', () => {
+        const mockGameBoard = Gameboard()
+        mockGameBoard.placeShipsOnBoard("4","1B", "X")
+        mockGameBoard.placeShipsOnBoard("4","2B", "X")
+        expect(mockGameBoard.shipsOnBoard.length).toBe(1)
+    })
+    it('prevent from adding two ships on the same coordenates', () => {
+        const mockGameBoard = Gameboard()
+        mockGameBoard.placeShipsOnBoard("4","1B", "X")
+        mockGameBoard.placeShipsOnBoard("5","1B", "X")
+        expect(mockGameBoard.shipsOnBoard.length).toBe(1)
+    })
+})
+
+describe('attack enemy Gameboard', () => {
+    it('receive attack', () => {
+        const mockGameBoard = Gameboard()
+        mockGameBoard.placeShipsOnBoard("4", "1B", "Y")
+        mockGameBoard.receiveAttack("5B")
+        expect(mockGameBoard.shipsOnBoard.map(ship => ship.shipMethods.timesHit)).toStrictEqual([0])
+        mockGameBoard.receiveAttack("1B")
+        expect(mockGameBoard.shipsOnBoard.map(ship => ship.shipMethods.timesHit)).toStrictEqual([1])
+    })
+    it('prevents from attacking the same coord twice', () => {
+        const mockGameBoard = Gameboard()
+        mockGameBoard.placeShipsOnBoard("4", "1B", "Y")
+        mockGameBoard.receiveAttack("5B")
+        expect(mockGameBoard.shipsOnBoard.map(ship => ship.shipMethods.timesHit)).toStrictEqual([0])
+        mockGameBoard.receiveAttack("1B")
+        expect(mockGameBoard.shipsOnBoard.map(ship => ship.shipMethods.timesHit)).toStrictEqual([1])
+        mockGameBoard.receiveAttack("1B")
+        expect(mockGameBoard.shipsOnBoard.map(ship => ship.shipMethods.timesHit)).toStrictEqual([1])
+    })
+    it('is ship sunk', () => {
+        const mockGameBoard = Gameboard()
+        mockGameBoard.placeShipsOnBoard("4", "1B", "Y")
+        mockGameBoard.receiveAttack("1B")
+        mockGameBoard.receiveAttack("2B")
+        mockGameBoard.receiveAttack("3B")
+        mockGameBoard.receiveAttack("4B")
+        expect(mockGameBoard.shipsOnBoard.map(ship => ship.shipMethods.isSunk)).toBeTruthy()
+    })
+})
+
+test('end game', () => {
+    const mockGameBoard = Gameboard()
+    mockGameBoard.placeShipsOnBoard("4", "1B", "Y")
+    mockGameBoard.placeShipsOnBoard("2", "5B", "Y")
+    mockGameBoard.receiveAttack("1B")
+    mockGameBoard.receiveAttack("2B")
+    mockGameBoard.receiveAttack("3B")
+    mockGameBoard.receiveAttack("4B")
+    mockGameBoard.receiveAttack("5B")
+    mockGameBoard.receiveAttack("6B")
+    expect(mockGameBoard.endGame).toBeTruthy()
+})

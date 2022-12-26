@@ -1,0 +1,123 @@
+:root {
+
+}
+
+@font-face {
+    font-family: 'Army';
+    src: url('../assets/fonts/army.ttf');
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    background-color: rgb(30 58 138);
+    color: white;
+    font-family: 'Army'
+}
+
+header {
+    text-align: center;
+    font-size: 5rem;
+}
+
+nav {
+    text-align: center;
+    font-size: 2.5rem;
+}
+
+.name-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+}
+
+input {
+    width: 300px;
+    font-size: 1.5rem;
+    text-align: center;
+    border: solid white;
+}
+
+button {
+    cursor: pointer;
+    border: solid white;
+}
+
+#confirm-btn {
+    font-size: 1.3rem;
+    padding: .5rem;
+    border-radius: .5rem;
+}
+
+.place-ships {
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    transition: ease;
+}
+
+.ships-container {
+    display: flex;
+    gap: 2rem;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+#select-ship {
+    font-size: 1.7rem;
+    padding: .5rem;
+    border-radius: .2rem;;
+}
+
+.change-axis {
+    display: flex;
+    gap: .3rem;
+    font-size: 1.7rem;
+    padding: .5rem;
+    border-radius: .2rem;;
+}
+
+.ship-position.active {
+    background-color: black;
+}
+
+#start-game {
+    font-size: 1.3rem;
+    padding: .5rem;
+    border-radius: .5rem;
+}
+
+main {
+    display: flex;
+    justify-content: center;
+    gap: 4rem;
+    font-size: 2rem;
+    flex-wrap: wrap;
+}
+
+.grid-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.player-board {
+    display: grid;
+    grid-template-columns: repeat(10, 1fr)
+}
+
+.computer-board {
+    display: grid;
+    grid-template-columns: repeat(10, 1fr)
+}
+
+.grid {
+    border: solid 1px white;
+    width: 40px;
+    height: 40px;
+}
+
