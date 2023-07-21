@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script defer src="main.js"></script>
+</head>
+<body>
+    <header>Battleship Game</header>
+    <nav>
+        <div class="name-container">
+            <label for=playerName>Enter Your Name Here</label>
+            <input type="text" name="player-name" id="player-name" required>
+            <button name="confirm" id="confirm-btn">Confirm</button>
+        </div>
+        <div class="place-ships">
+            <div class="ships-container">
+                <button name="carrier" id="select-ship" data-length="5">Carrier</button>
+                <button name="battleship" id="select-ship" data-length="4">Battleship</button>
+                <button name="destroyer" id="select-ship" data-length="3">Destroyer</button>
+                <button name="boat" id="select-ship" data-length="2">Boat</button>
+            </div>
+            <button name="position" class="change-axis">Axis: <div class="axis">X</div></button>
+            <button name="start-game" id="start-game">Start Game</button>
+        </div>
+        <div class="game-info">Place your ships!</div>
+    </nav>
+    <main>
+        <div class="grid-container">
+            <div class="player-name"></div>
+            <div class="player-board"></div>
+        </div>
+        <div class="grid-container">
+            <div class="computer-name"></div>
+            <div class="computer-board"></div>
+        </div>
+    </main>
+</body>
+</html>
